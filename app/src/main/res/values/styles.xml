@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="main_button_style" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="cornerRadius">@dimen/corner_radius_20dp</item>
+        <item name="android:backgroundTint">@color/button_color_white</item>
+        <item name="android:layout_marginBottom">@dimen/button_space_16dp</item>
+
+
+        <item name="android:textSize">@dimen/text_size_22sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textFontWeight">500</item>
+
+        <item name="iconTint">@color/icon_color</item>
+        <item name="iconGravity">textStart</item>
+    </style>
+
+    <style name="settings_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:layout_gravity">start|center_vertical</item>
+
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textColor">@color/text_color_black_settings</item>
+        <item name="android:fontFamily">@font/ys_display_regular</item>
+    </style>
+
+    <style name="icon_settings">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/padding_16dp</item>
+    </style>
+
+    <style name="settings_frame_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/padding_16dp</item>
+
+
+    </style>
+
+
+
+</resources>
