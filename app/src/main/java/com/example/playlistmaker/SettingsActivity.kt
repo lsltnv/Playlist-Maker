@@ -16,11 +16,8 @@ class SettingsActivity : AppCompatActivity() {
 
         val backButton = findViewById<ImageView>(R.id.ic_back_button)
         backButton.setOnClickListener {
-
-        this.finish()
+            this.finish()
         }
-
-
 
 
     }

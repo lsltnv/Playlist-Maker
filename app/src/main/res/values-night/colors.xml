@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background_app">#1A1B22</color>
-    <color name="text_color_white">#FFFFFF</color>
-    <color name="text_color_black">#1A1B22</color>
-    <color name="button_color_white">#FFFFFF</color>
-    <color name="icon_color">#1A1B22</color>
-    <color name="background_app_white">#FFFFFF</color>
-    <color name="text_color_black_settings">#000000</color>
-    <color name= "icon_color_settings">#FFFFFF</color>
-
+    <color name="colorPrimary">#1A1B22</color>
+    <color name="colorSecondary">#FFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#1A1B22</color>
 </resources>
