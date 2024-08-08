@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:src="@drawable/ic_back" />
-        <!--Решить проблему с покраской иконки через toolbar -->
+
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -53,6 +53,7 @@
             android:text="@string/share" />
 
         <ImageView
+            android:id="@+id/icon_share_buttone"
             style="@style/icon_settings"
             android:src="@drawable/ic_share" />
     </FrameLayout>
@@ -64,6 +65,7 @@
             android:text="@string/support" />
 
         <ImageView
+            android:id="@+id/support"
             style="@style/icon_settings"
             android:src="@drawable/ic_support" />
     </FrameLayout>
@@ -75,6 +77,7 @@
             android:text="@string/user_agreement" />
 
         <ImageView
+            android:id="@+id/agreement"
             style="@style/icon_settings"
             android:src="@drawable/ic_forward" />
     </FrameLayout>
