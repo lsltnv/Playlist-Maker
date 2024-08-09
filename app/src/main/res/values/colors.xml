@@ -5,4 +5,5 @@
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="colorOnSecondary">#1A1B22</color>
     <color name="iconColor">#AEAFB4</color>
+    <color name="editText_SearchAct_color">#AEAFB4</color>
 </resources>
