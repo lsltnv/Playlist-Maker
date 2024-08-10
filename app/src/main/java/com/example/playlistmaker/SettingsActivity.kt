@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(share)
         }
         val supportButton = findViewById<ImageView>(R.id.support)
-        supportButton.setOnClickListener{
+        supportButton.setOnClickListener {
             val support = Intent(Intent.ACTION_SENDTO)
             support.data = Uri.parse("mailto:")
             support.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.email)))
@@ -40,9 +40,9 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val agreementButton = findViewById<ImageView>(R.id.agreement)
-        agreementButton.setOnClickListener{
+        agreementButton.setOnClickListener {
             val agreement = Intent(Intent.ACTION_SEND)
-            agreement.type= "text/plain"
+            agreement.type = "text/plain"
             agreement.putExtra(Intent.EXTRA_TEXT, getString(R.string.user_agreement_url))
             startActivity(agreement)
 

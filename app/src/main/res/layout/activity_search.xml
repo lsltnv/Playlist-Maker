@@ -8,27 +8,20 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_search"
-        style="@style/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:padding="16dp">
+        style="@style/toolbar">
 
         <ImageView
             android:id="@+id/ic_back_button_searchAct"
-            style="@style/icon_back_dark_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:src="@drawable/ic_back" />
+            style="@style/toolbar_icon"
+            android:src="@drawable/ic_back"
+            />
 
         <TextView
             android:id="@+id/toolbar_title_searchAct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:fontFamily="@font/ys_display_medium"
+            style="@style/toolbar_text"
             android:text="@string/search"
-            android:textSize="@dimen/text_size_22sp" />
+
+            />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -39,7 +32,6 @@
         app:cardCornerRadius="8dp">
 
         <EditText
-
             android:id="@+id/inputEditText"
             android:layout_width="match_parent"
             android:layout_height="36dp"
