@@ -6,4 +6,5 @@
     <color name="colorOnSecondary">#1A1B22</color>
     <color name="iconColor">#AEAFB4</color>
     <color name="editText_SearchAct_color">#AEAFB4</color>
+    <color name="search_backround">#E6E8EB</color>
 </resources>

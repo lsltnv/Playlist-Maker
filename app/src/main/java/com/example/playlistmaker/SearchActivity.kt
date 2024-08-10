@@ -33,13 +33,7 @@ class SearchActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(inputEditText.windowToken, 0)
         }
 
-        fun clearButtonVisibility(s: CharSequence?): Int {
-            return if (s.isNullOrEmpty()) {
-                View.GONE
-            } else {
-                View.VISIBLE
-            }
-        }
+
 
         val searchButtonTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -56,6 +50,13 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.addTextChangedListener(searchButtonTextWatcher)
     }
+    private fun clearButtonVisibility(s: CharSequence?): Int {
+        return if (s.isNullOrEmpty()) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -68,6 +69,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val SAVE_SEARCH = ""
+       private const val SAVE_SEARCH = ""
     }
 }

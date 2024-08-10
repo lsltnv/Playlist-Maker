@@ -66,9 +66,10 @@
     </style>
 
     <style name="edit_Text">
-        <item name="android:background">#FFFFFF</item>
+        <item name="android:background">@drawable/background</item>
         <item name="android:drawableStart">@drawable/ic_search_act</item>
         <item name="android:drawablePadding">8dp</item>
+        <item name="android:paddingEnd">32dp</item>
         <item name="drawableTint">@color/editText_SearchAct_color</item>
         <item name="android:focusable">true</item>
         <item name="android:fontFamily">@font/ys_display_regular</item>
