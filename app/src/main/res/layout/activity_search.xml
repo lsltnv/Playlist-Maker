@@ -13,8 +13,7 @@
         <ImageView
             android:id="@+id/ic_back_button_searchAct"
             style="@style/toolbar_icon"
-            android:src="@drawable/ic_back"
-            />
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/toolbar_title_searchAct"
@@ -28,25 +27,73 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-         >
+        android:layout_margin="16dp">
 
         <EditText
             android:id="@+id/inputEditText"
+            style="@style/edit_Text"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            style="@style/edit_Text"/>
+            android:layout_height="36dp" />
 
         <ImageView
             android:id="@+id/clear_button"
-            android:src="@drawable/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            app:tint="@color/editText_SearchAct_color"
             android:paddingEnd="11dp"
-            android:visibility="gone"/>
-   </FrameLayout>
+            android:src="@drawable/delete"
+            android:visibility="gone"
+            app:tint="@color/editText_SearchAct_color" />
+    </FrameLayout>
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="13dp"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="start"
+            android:src="@color/iconColor" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="53dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Название трека" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Группа • 3:21" />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/search_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/search_forward"
+
+
+            />
+
+    </FrameLayout>
 
 
 </LinearLayout>
