@@ -18,9 +18,7 @@
         <TextView
             android:id="@+id/toolbar_title_searchAct"
             style="@style/toolbar_text"
-            android:text="@string/search"
-
-            />
+            android:text="@string/search"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -46,54 +44,10 @@
             app:tint="@color/editText_SearchAct_color" />
     </FrameLayout>
 
-    <FrameLayout
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="13dp"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
-
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="start"
-            android:src="@color/iconColor" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="53dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Название трека" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Группа • 3:21" />
-
-
-        </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/search_forward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:src="@drawable/search_forward"
-
-
-            />
-
-    </FrameLayout>
-
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>

@@ -2,7 +2,11 @@
 <resources>
     <dimen name="text_size_22sp">22sp</dimen>
     <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_11sp">11sp</dimen>
     <dimen name="corner_radius_20dp">20dp</dimen>
     <dimen name="button_space_16dp">16dp</dimen>
     <dimen name="padding_16dp">16dp</dimen>
+    <dimen name="corner_radius_artworkUrl100">2dp</dimen>
+    <dimen name="dimen_45dp">45dp</dimen>
+    <dimen name="dimen_44dp">44dp</dimen>
 </resources>
