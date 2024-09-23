@@ -17,10 +17,13 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+
         val backButton = findViewById<ImageView>(R.id.ic_back_button)
         backButton.setOnClickListener {
             this.finish()
         }
+
+
 
         val shareButton = findViewById<ImageView>(R.id.icon_share_buttone)
         shareButton.setOnClickListener {
@@ -47,7 +50,6 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(agreement)
 
         }
-
 
     }
 

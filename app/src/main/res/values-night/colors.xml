@@ -7,4 +7,8 @@
     <color name="iconColor">#1A1B22</color>
     <color name="editText_SearchAct_color">#1A1B22</color>
     <color name="search_backround">#FFFFFF</color>
+    <color name="ic_internet_error">#FFFFFF</color>
+
+    <color name="color_refresh_button">#FFFFFF</color>
+    <color name="color_refresh_button_text">#1A1B22</color>
 </resources>

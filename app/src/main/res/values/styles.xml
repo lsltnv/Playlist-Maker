@@ -137,4 +137,33 @@
         <item name="android:textSize">@dimen/text_size_11sp</item>
     </style>
 
+    <style name="refresh_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cornerRadius">54dp</item>
+        <item name="backgroundTint">@color/ic_internet_error</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:textColor">@color/color_refresh_button_text</item>
+
+    </style>
+
+    <style name="placeholderImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">102dp</item>
+    </style>
+
+    <style name="placeholderText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">24dp</item>
+        <item name="android:layout_marginTop">@dimen/padding_16dp</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/color_refresh_button</item>
+    </style>
+
 </resources>

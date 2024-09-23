@@ -4,115 +4,184 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
-    private var saveSearch = ""
+    private lateinit var placeholderImage: ImageView
+    private lateinit var placeholderText: TextView
+    private lateinit var placeholderButton: Button
+    private lateinit var searchAdapter: SearchAdapter
+
+    private var currentSearchQuery = ""
+    private var trackList = arrayListOf<Track>()
+    private var lastSearchQuery: String? = null
+
+    private val iTunesBaseUrl = "https://itunes.apple.com/"
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(iTunesBaseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val iTunesSearchAPIInterface = retrofit.create(ITunesSearchAPI::class.java)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
         val backButton = findViewById<ImageView>(R.id.ic_back_button_searchAct)
-        backButton.setOnClickListener {
-            this.finish()
-        }
+        backButton.setOnClickListener { finish() }
 
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
         val clearButton = findViewById<ImageView>(R.id.clear_button)
 
+        placeholderImage = findViewById(R.id.placeholderImage)
+        placeholderText = findViewById(R.id.placeholderText)
+        placeholderButton = findViewById(R.id.placeholderButton)
+
+        val recyclerViewSearch = findViewById<RecyclerView>(R.id.recyclerViewSearch)
+        searchAdapter = SearchAdapter(trackList)
+        recyclerViewSearch.adapter = searchAdapter
+
         clearButton.setOnClickListener {
             inputEditText.setText("")
+            trackList.clear()
+            searchAdapter.notifyDataSetChanged()
+            recyclerViewSearch.visibility = View.GONE
+            hidePlaceholder()
             inputEditText.clearFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(inputEditText.windowToken, 0)
+            hideKeyboard(inputEditText)
         }
 
-
-        val searchButtonTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+        inputEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                clearButton.visibility = clearButtonVisibility(s)
+                clearButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
             }
 
-            override fun afterTextChanged(s: Editable?) {
-                saveSearch = s.toString()
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
+        inputEditText.setOnEditorActionListener { _, actionId, event ->
+            val isDoneAction = actionId == EditorInfo.IME_ACTION_DONE ||
+                    (event?.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN)
+
+            if (isDoneAction) {
+                val query = inputEditText.text.toString().trim()
+                if (query.isNotEmpty()) trackSearch(query)
+                true
+            } else {
+                false
             }
         }
-        inputEditText.addTextChangedListener(searchButtonTextWatcher)
 
-        val trackList = arrayListOf(
-            Track(
-                "Smells Like Teen Spirit",
-                "Nirvana",
-                "5:01",
-                "https://is5-ssl.mzstatic.com/image/thumb/Music115/v4/7b/58/c2/7b58c21a-2b51-2bb2-e59a-9bb9b96ad8c3/00602567924166.rgb.jpg/100x100bb.jpg"
-            ),
+        placeholderButton.setOnClickListener {
+            lastSearchQuery?.let { query -> trackSearch(query) }
+        }
 
-            Track(
-                "Billie Jean",
-                "Michael Jackson",
-                "4:35",
-                "https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/3d/9d/38/3d9d3811-71f0-3a0e-1ada-3004e56ff852/827969428726.jpg/100x100bb.jpg"
-            ),
+        if (savedInstanceState != null) {
+            currentSearchQuery = savedInstanceState.getString(KEY_SAVE_SEARCH, "")
+            inputEditText.setText(currentSearchQuery)
 
-            Track(
-                "Stayin' Alive",
-                "Bee Gees",
-                "4:10",
-                "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/1f/80/1f/1f801fc1-8c0f-ea3e-d3e5-387c6619619e/16UMGIM86640.rgb.jpg/100x100bb.jpg"
-            ),
-            Track(
-                "Whole Lotta Love",
-                "Led Zeppelin",
-                "5:33",
-                "https://is2-ssl.mzstatic.com/image/thumb/Music62/v4/7e/17/e3/7e17e33f-2efa-2a36-e916-7f808576cf6b/mzm.fyigqcbs.jpg/100x100bb.jpg"
-            ),
-            Track(
-                "Sweet Child O'Mine",
-                "Guns N' Roses",
-                "5:03",
-                "https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/a0/4d/c4/a04dc484-03cc-02aa-fa82-5334fcb4bc16/18UMGIM24878.rgb.jpg/100x100bb.jpg"
-            )
+            val restoredList = savedInstanceState.getSerializable(KEY_TRACK_LIST) as? ArrayList<Track>
+            if (restoredList != null) {
+                trackList.clear()
+                trackList.addAll(restoredList)
+                searchAdapter.notifyDataSetChanged()
 
-        )
-        val recyclerViewSearch = findViewById<RecyclerView>(R.id.recyclerViewSearch)
-        val searchAdapter = SearchAdapter(trackList)
-        recyclerViewSearch.adapter = searchAdapter
+                if (trackList.isNotEmpty()) {
+                    recyclerViewSearch.visibility = View.VISIBLE
+                    hidePlaceholder()
+                }
+            }
+        }
+    }
+
+    private fun trackSearch(query: String) {
+        lastSearchQuery = query
+        iTunesSearchAPIInterface.search(query).enqueue(object : Callback<TrackResponse> {
+            override fun onResponse(call: Call<TrackResponse>, response: Response<TrackResponse>) {
+                if (response.isSuccessful && response.code() == 200) {
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.results.isNotEmpty()) {
+                        trackList.clear()
+                        trackList.addAll(responseBody.results)
+                        searchAdapter.notifyDataSetChanged()
+                        findViewById<RecyclerView>(R.id.recyclerViewSearch).visibility = View.VISIBLE
+                        hidePlaceholder()
+                    } else {
+                        trackList.clear()
+                        searchAdapter.notifyDataSetChanged()
+                        showPlaceholderNothingWasFound()
+                    }
+                } else {
+                    showPlaceholderInternetProblems()
+                }
+            }
+
+            override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
+                findViewById<RecyclerView>(R.id.recyclerViewSearch).visibility = View.GONE
+                trackList.clear()
+                searchAdapter.notifyDataSetChanged()
+                showPlaceholderInternetProblems()
+            }
+        })
+    }
+
+    private fun hidePlaceholder() {
+        placeholderText.visibility = View.GONE
+        placeholderImage.visibility = View.GONE
+        placeholderButton.visibility = View.GONE
+    }
+
+    private fun showPlaceholderNothingWasFound() {
+        findViewById<RecyclerView>(R.id.recyclerViewSearch).visibility = View.GONE
+        placeholderText.text = getString(R.string.nothing_was_found)
+        placeholderImage.setImageResource(R.drawable.ic_search_fail)
+        placeholderText.visibility = View.VISIBLE
+        placeholderImage.visibility = View.VISIBLE
+        placeholderButton.visibility = View.GONE
+    }
+
+    private fun showPlaceholderInternetProblems() {
+        findViewById<RecyclerView>(R.id.recyclerViewSearch).visibility = View.GONE
+        placeholderImage.setImageResource(R.drawable.ic_internet_error)
+        placeholderText.text = getString(R.string.internet_problems)
+        placeholderImage.visibility = View.VISIBLE
+        placeholderText.visibility = View.VISIBLE
+        placeholderButton.visibility = View.VISIBLE
+        findViewById<ImageView>(R.id.clear_button).visibility = View.GONE
 
     }
 
-    private fun clearButtonVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(SEARCH_SERVICE, saveSearch)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        saveSearch = savedInstanceState.getString(SAVE_SEARCH, "")
+        outState.putString(KEY_SAVE_SEARCH, currentSearchQuery)
+        outState.putSerializable(KEY_TRACK_LIST, trackList)
     }
 
     companion object {
-        private const val SAVE_SEARCH = ""
+        private const val KEY_SAVE_SEARCH = "KEY_SAVE_SEARCH"
+        private const val KEY_TRACK_LIST = "KEY_TRACK_LIST"
     }
 }
