@@ -43,6 +43,7 @@
             android:text="@string/settings"
             app:icon="@drawable/ic_settings" />
 
+
     </LinearLayout>
 
 </LinearLayout>
