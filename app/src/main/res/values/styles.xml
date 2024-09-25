@@ -165,5 +165,14 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/color_refresh_button</item>
     </style>
+    <style name="searchHistoryTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/color_refresh_button</item>
+        <item name="android:layout_marginTop">34dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:fontFamily">@font/ys_text_medium</item>
+    </style>
 
 </resources>
