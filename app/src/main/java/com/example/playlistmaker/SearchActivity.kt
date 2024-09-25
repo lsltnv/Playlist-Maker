@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -144,9 +145,10 @@ class SearchActivity : AppCompatActivity() {
     private fun trackSearch(query: String) {
         iTunesSearchAPIInterface.search(query).enqueue(object : Callback<TrackResponse> {
             override fun onResponse(call: Call<TrackResponse>, response: Response<TrackResponse>) {
-                if (response.isSuccessful && response.body()?.results?.isNotEmpty() == true) {
+                val results = response.body()?.results
+                if (response.isSuccessful && results?.isNotEmpty() == true) {
                     trackList.clear()
-                    trackList.addAll(response.body()!!.results)
+                    trackList.addAll(results)
                     searchAdapter.updateTracks(trackList)
                     findViewById<RecyclerView>(R.id.recyclerViewSearch).visibility = View.VISIBLE
                     hidePlaceholder()
@@ -171,9 +173,9 @@ class SearchActivity : AppCompatActivity() {
         historyList.addAll(searchHistory.getHistory())
         if (historyList.isNotEmpty()) {
             historyAdapter.updateTracks(historyList)
-            trackHistoryLayout.visibility = View.VISIBLE
+            trackHistoryLayout.isVisible = true
         } else {
-            trackHistoryLayout.visibility = View.GONE
+            trackHistoryLayout.isVisible = false
         }
     }
 
@@ -205,7 +207,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun onTrackClick(track: Track) {
-         searchHistory.addTrackToHistory(track)
+        searchHistory.addTrackToHistory(track)
         loadHistory()
     }
 

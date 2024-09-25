@@ -11,11 +11,12 @@ class App : Application() {
     }
 
     var darkTheme = false
+        private set
 
     override fun onCreate() {
         super.onCreate()
-        darkTheme = SharedPreferencesTheme()  // Загружаем состояние темы из SharedPreferences
-        switchTheme(darkTheme)    // Применяем загруженную тему
+        darkTheme = SharedPreferencesTheme()
+        switchTheme(darkTheme)
     }
 
     fun switchTheme(darkThemeEnabled: Boolean) {
