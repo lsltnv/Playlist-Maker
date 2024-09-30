@@ -5,25 +5,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import java.net.URL
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-
         val backButton = findViewById<ImageView>(R.id.ic_back_button)
         backButton.setOnClickListener {
-            this.finish()
+            finish()
         }
-
-
 
         val shareButton = findViewById<ImageView>(R.id.icon_share_buttone)
         shareButton.setOnClickListener {
@@ -32,6 +28,7 @@ class SettingsActivity : AppCompatActivity() {
             share.putExtra(Intent.EXTRA_TEXT, getString(R.string.Url_practicum))
             startActivity(share)
         }
+
         val supportButton = findViewById<ImageView>(R.id.support)
         supportButton.setOnClickListener {
             val support = Intent(Intent.ACTION_SENDTO)
@@ -48,9 +45,15 @@ class SettingsActivity : AppCompatActivity() {
             agreement.type = "text/plain"
             agreement.putExtra(Intent.EXTRA_TEXT, getString(R.string.user_agreement_url))
             startActivity(agreement)
-
         }
 
-    }
+        val themeSwitcher = findViewById<Switch>(R.id.themeSwitcher)
+        val app = applicationContext as App
 
+        themeSwitcher.isChecked = app.darkTheme
+
+        themeSwitcher.setOnCheckedChangeListener { _, isChecked ->
+            app.switchTheme(isChecked)
+        }
+    }
 }
