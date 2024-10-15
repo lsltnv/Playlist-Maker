@@ -9,7 +9,7 @@ class PlayerActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val backButton = findViewById<ImageView>(R.id.ic_back_button_playerActivity)
+        val backButton = findViewById<ImageView>(R.id.ic_back_button)
         backButton.setOnClickListener {
             finish()
         }
