@@ -17,4 +17,10 @@
     <string name="internet_problems">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="searchHystory">Вы искали</string>
     <string name="clearHistoryButton">Очистить историю</string>
+    <string name="albomImg">Обложка альбома</string>
+    <string name="duration">Длительность</string>
+    <string name="album">Альбом</string>
+    <string name="yearOfRelease">Год</string>
+    <string name="genreOfMusic">Жанр</string>
+    <string name="countryOfRelease">Страна</string>
 </resources>
